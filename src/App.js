@@ -1,38 +1,32 @@
 import './App.css';
-import "./Sidebar"
-import { useState,useEffect } from 'react';
+// import "./Sidebar"
+import { useState } from 'react';
 import Sidebar from './Sidebar';
-import useFetch from './useFetch';
+import Content from './Content';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes
+} from "react-router-dom";
 
 function App() {
   const [contentWidth, setContentWidth]= useState()
-  const { joke, isPending, error}= useFetch("https://v2.jokeapi.dev/joke/Programming?amount=3")
-  console.log( "Pending", isPending, "Error", error );
-  
-  
+  const [style, setStyle]= useState({fontFamily: "IBM Plex Mono, monospace"})
+  console.log(style);
   return (
-    <>
-    <div className="home">
-      <Sidebar setContentWidth={setContentWidth} />
-      <div style={contentWidth} className="content">
-        <h1>I got jokes</h1>
-        {error && <h1>{error}</h1> }
-        {isPending && <h1>Loading....</h1> }
-        {joke && joke.jokes.map((joke)=>(
-           <div key={joke.id}> 
-              {joke.type == "single" ? (
-                <>
-                 <h1> Single: {joke.joke} </h1>
-                </>
-              ) : (<>
-                  <h1>Setup : {joke.setup}</h1>
-                  <h1>Delivery: {joke.delivery}</h1>
-              </>) }
-           </div>
-        ))}
-      </div>
+    <Router>
+    <div style={style} className="home">
+      <Sidebar setStyle={setStyle} setContentWidth={setContentWidth} />
+      <Routes>
+          <Route path="/" element={<Content contentWidth={contentWidth} />} />
+          <Route path="/Miscellaneous" element={<Content contentWidth={contentWidth} />} />
+          <Route path="/Dark" element={<Content contentWidth={contentWidth} />} />
+          <Route path="/Pun" element={<Content contentWidth={contentWidth} />} />
+          <Route path="/Spooky" element={<Content contentWidth={contentWidth} />} />
+          <Route path="/Christmas" element={<Content contentWidth={contentWidth} />} />
+      </Routes>
     </div>
-    </>
+    </Router>
   );
 }
 
