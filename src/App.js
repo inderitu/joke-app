@@ -10,12 +10,13 @@ import {
 
 function App() {
   const [contentWidth, setContentWidth]= useState()
+  const [font, setFont]= useState({fontFamily: "'IBM Plex Mono', monospace"})
   return (
     <Router>
-    <div className="home">
+    <div style={font} className="home">
       <Sidebar setContentWidth={setContentWidth} />
       <Routes>
-          <Route path="/*" element={<Content contentWidth={contentWidth} />} />
+          <Route path="/*" element={<Content setFont={setFont} contentWidth={contentWidth} />} />
       </Routes>
     </div>
     </Router>
