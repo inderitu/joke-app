@@ -1,16 +1,17 @@
 import useFetch from './useFetch';
 import { useLocation } from 'react-router-dom';
 import "./Content.css"
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 const Content = ({contentWidth}) => {
     let location= useLocation();
-    const { joke, isPending, error}= useFetch(`https://v2.jokeapi.dev/joke${ location.pathname === '/'? '/Programming' : location.pathname }?amount=4`)
+    const [mode, setMode]= useState()
+    const { joke, isPending, error}= useFetch(`https://v2.jokeapi.dev/joke${ location.pathname === '/'? '/Programming' : location.pathname }?blacklistFlags=racist&amount=4`)
     const handleMode= ()=>{
         console.log("Set Mode");
-      }
-      const handleRefresh= ()=>{
+    }
+    const handleRefresh= ()=>{
         window.location.reload(false)
-      }      
+    }            
     return ( 
         <div style={contentWidth} className="content">
             <div className="top">
@@ -24,18 +25,16 @@ const Content = ({contentWidth}) => {
                 <div key={joke.id}> 
                     {joke.type === "single" ? (
                     <div className="single_joke joke">
-                        <h1> Single: </h1> 
-                        <p>{joke.joke} </p>
+                        <h1> Single: <span>{joke.joke} </span> </h1> 
+                        
                     </div>
                     ) : (
                     <div className="twopart_joke">
                         <div className="setup joke">
-                            <h1>Setup :</h1> 
-                            <p>{joke.setup}</p>
+                            <h1>Setup : <span>{joke.setup}</span> </h1> 
                         </div>
                         <div className="delivery joke">
-                            <h1>Delivery: </h1>
-                            <p>{joke.delivery}</p>
+                            <h1>Delivery: <span>{joke.delivery}</span> </h1>
                         </div>
                     </div>) }
                 </div>
