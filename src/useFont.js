@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 const useFont = (pathname) => {
     const styles= {
         '/': {fontFamily: "'IBM Plex Mono', monospace"},
