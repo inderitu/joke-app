@@ -1,1 +1,1 @@
-#Fun project
+**Fun API and React project**
