@@ -6,12 +6,10 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import WarningIcon from '@mui/icons-material/Warning';
 import PriorityHighIcon from '@mui/icons-material/PriorityHigh';
 import Brightness1Icon from '@mui/icons-material/Brightness1';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-const Sidebar = ({setContentWidth, setStyle}) => {
-    let location= useLocation()
-    const [category, setCategory]= useState(location.pathname)
+
+const Sidebar = ({setContentWidth }) => {
     const [toggle, setToggle]= useState(true)
     const [navWidth, setNavWidth]= useState()
     const [navItemWidth, setNavItemWidth]= useState()
@@ -30,20 +28,9 @@ const Sidebar = ({setContentWidth, setStyle}) => {
         setNavItemWidth({width: "95%"})
       }
     }
-
-    useEffect(()=>{
-          
-    })
+  
+   
     const navItemClick= ()=>{
-      // set different fonts
-      setCategory(location.pathname)
-      if( category === "/" ){
-        console.log(category);
-        setStyle({fontFamily: "IBM Plex Mono, monospace"})
-      }else if(category === "/Miscellaneous"){
-        console.log(category);
-        setStyle({fontFamily: "Mountains of Christmas, cursive"})
-      }
       if(window.innerWidth <= 550){
         setNavWidth({left: "-70vw"})
         mobileToggle ? setMobileToggle(false) : setMobileToggle(true)
@@ -56,12 +43,12 @@ const Sidebar = ({setContentWidth, setStyle}) => {
           <div onClick={ handleClick } >
             <MenuIcon className="menu_icon" />
           </div>
-          {toggle && <h1>Joke App</h1>}
+          {toggle && <h1>Categories</h1>}
         </div>
-        <div onClick={navItemClick} style={navItemWidth} className="nav_item"> 
+        <div onClick={()=> navItemClick("/Programming")} style={navItemWidth} className="nav_item"> 
           <Link className="nav_link" to={"/"} > <ComputerIcon className="icon"/> {toggle && <p>Programming</p> } </Link> 
         </div>
-        <div onClick={navItemClick} style={navItemWidth} className="nav_item"> 
+        <div onClick={()=> navItemClick("/Miscellaneous")} style={navItemWidth} className="nav_item"> 
           <Link className="nav_link" to={"/Miscellaneous"} ><Brightness1Icon className="icon"/> {toggle && <p>Miscellaneous</p> }</Link> 
         </div>
         <div onClick={navItemClick} style={navItemWidth} className="nav_item"> 
