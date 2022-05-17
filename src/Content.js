@@ -1,11 +1,16 @@
-import useFetch from './useFetch';
-import { useLocation } from 'react-router-dom';
 import "./Content.css"
-import { useState } from 'react';
-const Content = ({contentWidth}) => {
-    let location= useLocation();
-    const [mode, setMode]= useState()
-    const { joke, isPending, error}= useFetch(`https://v2.jokeapi.dev/joke${ location.pathname === '/'? '/Programming' : location.pathname }?blacklistFlags=racist&amount=4`)
+import useFetch from './useFetch';
+import useFont from "./useFont";
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+const Content = ({contentWidth, setFont}) => {
+    let {pathname}= useLocation();
+    const style = useFont(pathname)
+    useEffect(()=>{
+        setFont(style)
+    }, [setFont, pathname])
+    
+    const { joke, isPending, error}= useFetch(`https://v2.jokeapi.dev/joke${ pathname === '/'? '/Programming' : pathname }?blacklistFlags=racist&amount=4`)
     const handleMode= ()=>{
         console.log("Set Mode");
     }
@@ -15,7 +20,7 @@ const Content = ({contentWidth}) => {
     return ( 
         <div style={contentWidth} className="content">
             <div className="top">
-                <h1 className="category" > {location.pathname === '/'? 'Programming' : location.pathname.slice(1) } Jokes</h1>
+                <h1 className="category" > {pathname === '/'? 'Programming' : pathname.slice(1) } Jokes</h1>
                 <div onClick={handleMode} className="mode" >Safe Mode</div>
             </div>
             {error && <h1>{error}</h1> }
