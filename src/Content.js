@@ -8,11 +8,12 @@ const Content = ({contentWidth, setFont}) => {
     const style = useFont(pathname)
     useEffect(()=>{
         setFont(style)
+        document.title= `Joke App | ${pathname === '/'? 'Programming' : pathname.slice(1) } Jokes`
     }, [setFont, pathname])
     
     const { joke, isPending, error}= useFetch(`https://v2.jokeapi.dev/joke${ pathname === '/'? '/Programming' : pathname }?blacklistFlags=racist&amount=4`)
     const handleMode= ()=>{
-        console.log("Set Mode");
+        console.log("Mode");
     }
     const handleRefresh= ()=>{
         window.location.reload(false)
