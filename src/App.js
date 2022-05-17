@@ -1,5 +1,4 @@
 import './App.css';
-// import "./Sidebar"
 import { useState } from 'react';
 import Sidebar from './Sidebar';
 import Content from './Content';
@@ -11,19 +10,12 @@ import {
 
 function App() {
   const [contentWidth, setContentWidth]= useState()
-  const [style, setStyle]= useState({fontFamily: "IBM Plex Mono, monospace"})
-  console.log(style);
   return (
     <Router>
-    <div style={style} className="home">
-      <Sidebar setStyle={setStyle} setContentWidth={setContentWidth} />
+    <div className="home">
+      <Sidebar setContentWidth={setContentWidth} />
       <Routes>
-          <Route path="/" element={<Content contentWidth={contentWidth} />} />
-          <Route path="/Miscellaneous" element={<Content contentWidth={contentWidth} />} />
-          <Route path="/Dark" element={<Content contentWidth={contentWidth} />} />
-          <Route path="/Pun" element={<Content contentWidth={contentWidth} />} />
-          <Route path="/Spooky" element={<Content contentWidth={contentWidth} />} />
-          <Route path="/Christmas" element={<Content contentWidth={contentWidth} />} />
+          <Route path="/*" element={<Content contentWidth={contentWidth} />} />
       </Routes>
     </div>
     </Router>
