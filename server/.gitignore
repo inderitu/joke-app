@@ -1,0 +1,4 @@
+/node_modules
+
+# gcp private key
+gcp_private_key.json
