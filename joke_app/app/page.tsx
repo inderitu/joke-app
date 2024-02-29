@@ -15,6 +15,7 @@ export default function Home() {
 
   const [jokes, setJokes] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [audioLoading, setAudioLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean | string>(false);
   const [category, setCategory] = useState<Category>("Programming");
 
@@ -36,8 +37,10 @@ export default function Home() {
       });
   }
   const playAudio = (joke: string) => {
+    setAudioLoading(true);
     Fetch_Audio(joke)
       .then((data) => {
+        setAudioLoading(false);
         if (data) {
           const url = URL.createObjectURL(data);
           const audio = new Audio(url)
@@ -45,6 +48,7 @@ export default function Home() {
         }
       })
       .catch((error) => {
+        setAudioLoading(false);
         alert("Cannot play audio at the moment. Please try again later.")
       });
 
@@ -79,7 +83,8 @@ export default function Home() {
               <div className={styles.single_joke && styles.joke}>
                 <h1> Single: <span>{joke.joke} </span> </h1>
                 <div className={styles.play_btn} onClick={() => playAudio(joke.joke)}>
-                  <PlayCircleOutlineRoundedIcon />
+                  {audioLoading && <div className={styles.loader}></div>}
+                  {!audioLoading && <PlayCircleOutlineRoundedIcon />}
                 </div>
               </div>
             ) : (
@@ -91,7 +96,8 @@ export default function Home() {
                   <h1>Delivery: <span>{joke.delivery}</span> </h1>
                 </div>
                 <div className={styles.play_btn} onClick={() => playAudio(`${joke.setup}, ${joke.delivery}`)}>
-                  <PlayCircleOutlineRoundedIcon />
+                  {audioLoading && <div className={styles.loader}></div>}
+                  {!audioLoading && <PlayCircleOutlineRoundedIcon />}
                 </div>
               </div>)}
           </div>
