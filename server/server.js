@@ -23,11 +23,7 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 const fs = require('fs');
 const util = require('util');
 // Creates a client
-const client = new textToSpeech.TextToSpeechClient(
-  {
-    keyFilename: './gcp_private_key.json'
-  }
-);
+const client = new textToSpeech.TextToSpeechClient();
 
 const sendAudio = async (req, res) => {
   //get text
@@ -58,6 +54,8 @@ const sendAudio = async (req, res) => {
   });
 }
 app.post('/get-audio', sendAudio);
-app.listen(8080, () => {
-  console.log('Server is running on port 8080');
+
+const port = parseInt(process.env.PORT) || 8080;
+app.listen(port, () => {
+  console.log(`helloworld: listening on port ${port}`);
 });
