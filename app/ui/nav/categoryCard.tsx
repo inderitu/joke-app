@@ -1,22 +1,20 @@
 'use client';
 
+import { useCategoryStore } from "@/app/lib/store";
+
 type Props = {
 	categoryName: string,
 }
 export function CategoryCard({ categoryName }: Props) {
 
-	/**
-	 * onclick  set category
-	 * trigger function to fetch jokes
-	 * implement partial render of only the jokes container
-	 */
-	const setCategory = (category: string) => {
-		alert(category);
-	}
+	const setCategory = useCategoryStore((state) => state.updateCategory);
+
 	return (
 		<div
 			className="flex items-end border-b-2 mb-2 h-10 cursor-pointer"
-			onClick={() => alert(categoryName)}
+			onClick={() => {
+				setCategory(categoryName)
+			}}
 		>
 			<p> {categoryName} </p>
 		</div>
