@@ -1,13 +1,6 @@
-'use client';
-
 import { CategoryCard } from '@/app/ui/nav/categoryCard';
 
 export function Nav() {
-	/**
-	 * object properties
-	 * name 
-	 * font style
-	 */
 	const categoryObjArr = [
 		{ name: "Programming" },
 		{ name: "Miscellaneous" },
